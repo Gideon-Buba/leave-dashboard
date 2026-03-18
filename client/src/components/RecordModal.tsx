@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { LeaveRecord, CreateRecordDto } from '../types';
 import { LEAVE_TYPES, RANKS } from '../constants';
 import { StatusBadge } from './StatusBadge';
+import { fmtDate } from '../utils';
 
 interface Props {
   mode: 'add' | 'edit' | 'view';
@@ -132,15 +133,15 @@ export function RecordModal({ mode, record, onSave, onClose, onEdit }: Props) {
               <div className="form-section">Dates</div>
 
               <Field label="Start Date *" error={errors.startDate}>
-                <input className="input" type={ro ? 'text' : 'date'} value={form.startDate} readOnly={ro}
+                <input className="input" type={ro ? 'text' : 'date'} value={ro ? fmtDate(form.startDate) : form.startDate} readOnly={ro}
                   onChange={(e) => set('startDate', e.target.value)} />
               </Field>
               <Field label="End Date *" error={errors.endDate}>
-                <input className="input" type={ro ? 'text' : 'date'} value={form.endDate} readOnly={ro}
+                <input className="input" type={ro ? 'text' : 'date'} value={ro ? fmtDate(form.endDate) : form.endDate} readOnly={ro}
                   onChange={(e) => set('endDate', e.target.value)} />
               </Field>
               <Field label="Resumption Date">
-                <input className="input" type={ro ? 'text' : 'date'} value={form.resumptionDate || ''} readOnly={ro}
+                <input className="input" type={ro ? 'text' : 'date'} value={ro ? fmtDate(form.resumptionDate) : (form.resumptionDate || '')} readOnly={ro}
                   onChange={(e) => set('resumptionDate', e.target.value)} />
               </Field>
               <Field label="Duration">

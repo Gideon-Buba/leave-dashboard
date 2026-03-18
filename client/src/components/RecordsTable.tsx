@@ -1,6 +1,7 @@
 import React from 'react';
 import { LeaveRecord } from '../types';
 import { StatusBadge } from './StatusBadge';
+import { fmtDate } from '../utils';
 
 interface Props {
   records: LeaveRecord[];
@@ -86,9 +87,9 @@ export function RecordsTable({ records, total, sortBy, sortDir, onSort, onView, 
                       {r.paidStatus}
                     </span>
                   </td>
-                  <td>{r.startDate}</td>
-                  <td>{r.endDate}</td>
-                  <td>{r.resumptionDate || '—'}</td>
+                  <td>{fmtDate(r.startDate)}</td>
+                  <td>{fmtDate(r.endDate)}</td>
+                  <td>{fmtDate(r.resumptionDate)}</td>
                   <td><StatusBadge status={r.status} /></td>
                   <td>
                     <div className="action-btns">

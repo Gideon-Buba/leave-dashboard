@@ -90,6 +90,18 @@ export class RecordsService implements OnApplicationBootstrap {
     await this.repo.delete(id);
   }
 
+  async deleteMany(ids: number[]): Promise<{ deleted: number }> {
+    let deleted = 0;
+    for (const id of ids) {
+      const record = await this.repo.findOne(id);
+      if (record) {
+        await this.repo.delete(id);
+        deleted++;
+      }
+    }
+    return { deleted };
+  }
+
   async getAllRaw() {
     return this.repo.findAll();
   }

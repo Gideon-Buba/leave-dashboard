@@ -5,6 +5,8 @@ import { RecordsTable } from './components/RecordsTable';
 import { RecordModal } from './components/RecordModal';
 import { DeleteModal } from './components/DeleteModal';
 import { ImportResultModal } from './components/ImportResultModal';
+import { BulkActionBar } from './components/BulkActionBar';
+import { BulkDeleteModal } from './components/BulkDeleteModal';
 import { Toast } from './components/Toast';
 import { DonutChart } from './components/DonutChart';
 import { LeaveTypeBar } from './components/LeaveTypeBar';
@@ -48,6 +50,8 @@ export default function App() {
   const [deleteTarget, setDeleteTarget] = useState<LeaveRecord | null>(null);
   const [importResult, setImportResult] = useState<ImportResult | null>(null);
   const [toast, setToast] = useState<ToastState | null>(null);
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [bulkDeleteOpen, setBulkDeleteOpen] = useState(false);
 
   const showToast = useCallback((message: string, type: ToastState['type'] = 'info') => {
     setToast({ message, type });
@@ -82,6 +86,20 @@ export default function App() {
       await api.deleteRecord(deleteTarget.id);
       showToast(`${deleteTarget.name}'s record deleted`, 'success');
       setDeleteTarget(null);
+      refetch();
+      refetchStats();
+    } catch (e: any) {
+      showToast(e.message, 'error');
+    }
+  };
+
+  const handleBulkDelete = async () => {
+    try {
+      const ids = Array.from(selectedIds);
+      const result = await api.deleteRecords(ids);
+      showToast(`Deleted ${result.deleted} record${result.deleted !== 1 ? 's' : ''}`, 'success');
+      setSelectedIds(new Set());
+      setBulkDeleteOpen(false);
       refetch();
       refetchStats();
     } catch (e: any) {
@@ -191,6 +209,8 @@ export default function App() {
             onView={(r) => { setSelectedRecord(r); setModalMode('view'); }}
             onEdit={(r) => { setSelectedRecord(r); setModalMode('edit'); }}
             onDelete={(r) => setDeleteTarget(r)}
+            selectedIds={selectedIds}
+            onSelectionChange={setSelectedIds}
           />
         )}
       </main>
@@ -217,6 +237,22 @@ export default function App() {
         <ImportResultModal
           result={importResult}
           onClose={() => setImportResult(null)}
+        />
+      )}
+
+      {bulkDeleteOpen && (
+        <BulkDeleteModal
+          count={selectedIds.size}
+          onConfirm={handleBulkDelete}
+          onCancel={() => setBulkDeleteOpen(false)}
+        />
+      )}
+
+      {selectedIds.size > 0 && !bulkDeleteOpen && (
+        <BulkActionBar
+          count={selectedIds.size}
+          onDelete={() => setBulkDeleteOpen(true)}
+          onClear={() => setSelectedIds(new Set())}
         />
       )}
 

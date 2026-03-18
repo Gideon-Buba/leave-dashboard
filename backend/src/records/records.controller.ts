@@ -11,6 +11,13 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
+import { IsArray, IsInt } from 'class-validator';
+
+class BulkDeleteDto {
+  @IsArray()
+  @IsInt({ each: true })
+  ids: number[];
+}
 import { RecordsService } from './records.service';
 import { CreateRecordDto } from './dto/create-record.dto';
 import { UpdateRecordDto } from './dto/update-record.dto';
@@ -44,5 +51,10 @@ export class RecordsController {
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.service.delete(id);
+  }
+
+  @Delete()
+  deleteMany(@Body() dto: BulkDeleteDto) {
+    return this.service.deleteMany(dto.ids);
   }
 }

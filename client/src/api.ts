@@ -44,6 +44,13 @@ export const api = {
   deleteRecord: (id: number): Promise<void> =>
     fetch(`${BASE}/records/${id}`, { method: 'DELETE' }).then((r) => handleResponse<void>(r)),
 
+  deleteRecords: (ids: number[]): Promise<{ deleted: number }> =>
+    fetch(`${BASE}/records`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ids }),
+    }).then((r) => handleResponse<{ deleted: number }>(r)),
+
   importFile: (file: File): Promise<ImportResult> => {
     const form = new FormData();
     form.append('file', file);

@@ -1,0 +1,14 @@
+{
+  "name": "leave-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": ["backend", "client"],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=backend\" \"npm run dev --workspace=client\"",
+    "build": "npm run build --workspace=backend && npm run build --workspace=client",
+    "start": "npm run start:prod --workspace=backend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

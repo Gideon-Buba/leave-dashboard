@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { LEAVE_TYPES } from '../constants';
+import { IconSearch, IconUpload, IconDownload, IconPlus, IconX, IconFileText } from './Icons';
 
 interface Props {
   search: string;
@@ -11,6 +12,7 @@ interface Props {
   onImport: (file: File) => void;
   onExport: () => void;
   onAdd: () => void;
+  onReport: () => void;
   onClearFilters: () => void;
   hasFilters: boolean;
 }
@@ -20,20 +22,22 @@ const STATUSES = ['Overdue', 'Ongoing', 'Upcoming', 'Completed'];
 export function Toolbar({
   search, leaveType, status,
   onSearch, onLeaveType, onStatus,
-  onImport, onExport, onAdd, onClearFilters, hasFilters,
+  onImport, onExport, onAdd, onReport, onClearFilters, hasFilters,
 }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className="toolbar">
       <div className="toolbar-filters">
-        <input
-          className="input"
-          style={{ maxWidth: 240 }}
-          placeholder="🔍  Search name, IR No., type…"
-          value={search}
-          onChange={(e) => onSearch(e.target.value)}
-        />
+        <div className="input-icon-wrap" style={{ maxWidth: 240 }}>
+          <IconSearch size={14} color="var(--grey-400)" />
+          <input
+            className="input input-with-icon"
+            placeholder="Search name, IR No., type…"
+            value={search}
+            onChange={(e) => onSearch(e.target.value)}
+          />
+        </div>
         <select className="select" style={{ maxWidth: 180 }} value={leaveType} onChange={(e) => onLeaveType(e.target.value)}>
           <option value="">All Leave Types</option>
           {LEAVE_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
@@ -44,7 +48,7 @@ export function Toolbar({
         </select>
         {hasFilters && (
           <button className="btn btn-sm btn-danger-outline" onClick={onClearFilters}>
-            ✕ Clear
+            <IconX size={12} strokeWidth={2.5} /> Clear
           </button>
         )}
       </div>
@@ -61,13 +65,16 @@ export function Toolbar({
           }}
         />
         <button className="btn btn-secondary" onClick={() => fileRef.current?.click()}>
-          ↑ Import
+          <IconUpload size={14} /> Import
         </button>
         <button className="btn btn-secondary" onClick={onExport}>
-          ↓ Export
+          <IconDownload size={14} /> Export
+        </button>
+        <button className="btn btn-secondary" onClick={onReport}>
+          <IconFileText size={14} /> Report
         </button>
         <button className="btn btn-primary" onClick={onAdd}>
-          + Add Record
+          <IconPlus size={14} /> Add Record
         </button>
       </div>
     </div>

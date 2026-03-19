@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ImportResult, ImportIssue } from '../types';
+import { IconCheck, IconAlertTriangle, IconX } from './Icons';
 
 interface Props {
   result: ImportResult;
@@ -50,9 +51,9 @@ export function ImportResultModal({ result, onClose }: Props) {
     : 'success';
 
   const statusMeta = {
-    success: { icon: '✓', label: 'Import Complete', color: '#2E7D32', bg: '#E8F5E9' },
-    warning: { icon: '⚠', label: 'Imported with Warnings', color: '#7B3F00', bg: '#FFF3E0' },
-    error:   { icon: '✕', label: 'Import Finished with Errors', color: '#C8102E', bg: '#FDECEA' },
+    success: { icon: <IconCheck size={16} strokeWidth={2.5} color="white" />, label: 'Import Complete', color: '#2E7D32', bg: '#E8F5E9' },
+    warning: { icon: <IconAlertTriangle size={16} strokeWidth={2.5} color="white" />, label: 'Imported with Warnings', color: '#7B3F00', bg: '#FFF3E0' },
+    error:   { icon: <IconX size={16} strokeWidth={2.5} color="white" />, label: 'Import Finished with Errors', color: '#C8102E', bg: '#FDECEA' },
   }[overallStatus];
 
   return (
@@ -104,6 +105,27 @@ export function ImportResultModal({ result, onClose }: Props) {
             <div key={label} style={{ background: 'white', padding: '0.85rem 1rem', textAlign: 'center' }}>
               <div style={{ fontSize: '1.5rem', fontWeight: 800, color, lineHeight: 1.1 }}>{value}</div>
               <div style={{ fontSize: '0.68rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em', color: 'var(--grey-500)', marginTop: 3 }}>{label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Terminology legend */}
+        <div style={{
+          padding: '0.65rem 1.25rem',
+          borderBottom: '1px solid var(--grey-200)',
+          background: 'var(--grey-50)',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '0.25rem 2rem',
+        }}>
+          {[
+            { term: 'Inserted', def: 'Records successfully saved to the database.' },
+            { term: 'Skipped',  def: 'Records not saved — already exist or failed validation.' },
+            { term: 'Warnings', def: 'Saved, but missing the optional Rank field.' },
+            { term: 'Errors',   def: 'Rejected due to one or more missing required fields.' },
+          ].map(({ term, def }) => (
+            <div key={term} style={{ fontSize: '0.75rem', color: 'var(--grey-600)', lineHeight: 1.4 }}>
+              <strong style={{ color: 'var(--grey-800)' }}>{term}:</strong> {def}
             </div>
           ))}
         </div>

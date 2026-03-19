@@ -7,6 +7,7 @@ import { DeleteModal } from './components/DeleteModal';
 import { ImportResultModal } from './components/ImportResultModal';
 import { BulkActionBar } from './components/BulkActionBar';
 import { BulkDeleteModal } from './components/BulkDeleteModal';
+import { ReportModal } from './components/ReportModal';
 import { Toast } from './components/Toast';
 import { DonutChart } from './components/DonutChart';
 import { LeaveTypeBar } from './components/LeaveTypeBar';
@@ -52,6 +53,7 @@ export default function App() {
   const [toast, setToast] = useState<ToastState | null>(null);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [bulkDeleteOpen, setBulkDeleteOpen] = useState(false);
+  const [reportOpen, setReportOpen] = useState(false);
 
   const showToast = useCallback((message: string, type: ToastState['type'] = 'info') => {
     setToast({ message, type });
@@ -149,10 +151,10 @@ export default function App() {
     <div className="app">
       <header className="header">
         <div className="header-brand">
-          <div className="header-emblem">FIRS</div>
+          <div className="header-emblem">NRS</div>
           <div>
             <div className="header-title">Leave Report Dashboard</div>
-            <div className="header-sub">Federal Inland Revenue Service</div>
+            <div className="header-sub">Nigeria Revenue Service</div>
           </div>
         </div>
         <div className="header-meta">
@@ -190,6 +192,7 @@ export default function App() {
           onImport={handleImport}
           onExport={api.exportFile}
           onAdd={() => { setSelectedRecord(null); setModalMode('add'); }}
+          onReport={() => setReportOpen(true)}
           onClearFilters={() => { setSearch(''); setLeaveType(''); setStatus(''); }}
           hasFilters={hasFilters}
         />
@@ -238,6 +241,10 @@ export default function App() {
           result={importResult}
           onClose={() => setImportResult(null)}
         />
+      )}
+
+      {reportOpen && (
+        <ReportModal onClose={() => setReportOpen(false)} />
       )}
 
       {bulkDeleteOpen && (

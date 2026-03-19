@@ -1,5 +1,6 @@
 import React from 'react';
 import { Stats } from '../types';
+import { IconUsers, IconAlertTriangle, IconActivity, IconWallet } from './Icons';
 
 interface Props {
   stats: Stats | null;
@@ -14,7 +15,7 @@ export function StatsBar({ stats, activeFilter, onFilter }: Props) {
       label: 'Total Officers',
       value: stats?.total ?? '—',
       sub: 'All leave records',
-      icon: '👥',
+      Icon: IconUsers,
       accent: '#495057',
       bg: '#F1F3F5',
     },
@@ -23,7 +24,7 @@ export function StatsBar({ stats, activeFilter, onFilter }: Props) {
       label: 'Overdue',
       value: stats?.overdue ?? '—',
       sub: 'Resumption date passed',
-      icon: '⚠️',
+      Icon: IconAlertTriangle,
       accent: '#C8102E',
       bg: '#FDECEA',
     },
@@ -32,7 +33,7 @@ export function StatsBar({ stats, activeFilter, onFilter }: Props) {
       label: 'Currently Active',
       value: stats?.ongoing ?? '—',
       sub: 'Leave in progress',
-      icon: '📋',
+      Icon: IconActivity,
       accent: '#2E7D32',
       bg: '#E8F5E9',
     },
@@ -41,14 +42,14 @@ export function StatsBar({ stats, activeFilter, onFilter }: Props) {
       label: 'Unpaid Leave',
       value: stats?.unpaid ?? '—',
       sub: 'No pay during leave',
-      icon: '💼',
+      Icon: IconWallet,
       accent: '#7B3F00',
       bg: '#FFF3E0',
     },
   ];
 
   const handleClick = (key: string | null) => {
-    if (key === 'unpaid') return; // unpaid is not a status filter
+    if (key === 'unpaid') return;
     onFilter(activeFilter === key ? null : key);
   };
 
@@ -62,7 +63,9 @@ export function StatsBar({ stats, activeFilter, onFilter }: Props) {
           onClick={() => handleClick(card.key)}
           title={card.key !== 'unpaid' ? `Click to filter by ${card.label}` : undefined}
         >
-          <div className="stat-icon">{card.icon}</div>
+          <div className="stat-icon">
+            <card.Icon size={22} color={card.accent} />
+          </div>
           <div className="stat-body">
             <div className="stat-label">{card.label}</div>
             <div className="stat-value">{card.value}</div>

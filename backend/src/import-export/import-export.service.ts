@@ -337,7 +337,7 @@ export class ImportExportService {
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Leave Report');
 
     const today = new Date().toISOString().split('T')[0];
-    const filename = `FIRS_Leave_Report_${today}.xlsx`;
+    const filename = `NRS_Leave_Report_${today}.xlsx`;
 
     const buffer = XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' });
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

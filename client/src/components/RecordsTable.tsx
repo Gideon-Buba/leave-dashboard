@@ -2,6 +2,7 @@ import React from 'react';
 import { LeaveRecord } from '../types';
 import { StatusBadge } from './StatusBadge';
 import { fmtDate } from '../utils';
+import { IconEye, IconEdit, IconTrash, IconFolder, IconSortAsc, IconSortDesc } from './Icons';
 
 interface Props {
   records: LeaveRecord[];
@@ -103,7 +104,11 @@ export function RecordsTable({
                 >
                   {col.label}
                   {col.sortable && sortBy === col.key && (
-                    <span className="sort-arrow">{sortDir === 'asc' ? '↑' : '↓'}</span>
+                    <span className="sort-arrow">
+                      {sortDir === 'asc'
+                        ? <IconSortAsc size={11} strokeWidth={2.5} />
+                        : <IconSortDesc size={11} strokeWidth={2.5} />}
+                    </span>
                   )}
                 </th>
               ))}
@@ -115,7 +120,9 @@ export function RecordsTable({
               <tr>
                 <td colSpan={COLS.length + 1}>
                   <div className="table-empty">
-                    <div className="table-empty-icon">🗂️</div>
+                    <div className="table-empty-icon">
+                      <IconFolder size={36} color="var(--grey-400)" strokeWidth={1.25} />
+                    </div>
                     <div className="table-empty-msg">No records match your filters.</div>
                   </div>
                 </td>
@@ -158,9 +165,15 @@ export function RecordsTable({
                     <td><StatusBadge status={r.status} /></td>
                     <td>
                       <div className="action-btns">
-                        <button className="btn btn-sm btn-outline" onClick={() => onView(r)}>View</button>
-                        <button className="btn btn-sm btn-outline" onClick={() => onEdit(r)}>Edit</button>
-                        <button className="btn btn-sm btn-danger-outline" onClick={() => onDelete(r)}>Delete</button>
+                        <button className="btn btn-sm btn-outline" onClick={() => onView(r)} title="View">
+                          <IconEye size={13} strokeWidth={1.75} /> View
+                        </button>
+                        <button className="btn btn-sm btn-outline" onClick={() => onEdit(r)} title="Edit">
+                          <IconEdit size={13} strokeWidth={1.75} /> Edit
+                        </button>
+                        <button className="btn btn-sm btn-danger-outline" onClick={() => onDelete(r)} title="Delete">
+                          <IconTrash size={13} strokeWidth={1.75} />
+                        </button>
                       </div>
                     </td>
                   </tr>

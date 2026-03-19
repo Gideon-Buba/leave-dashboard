@@ -1,4 +1,5 @@
 import React from 'react';
+import { IconTrash } from './Icons';
 
 interface Props {
   count: number;
@@ -15,7 +16,9 @@ export function BulkDeleteModal({ count, onConfirm, onCancel }: Props) {
           <button className="modal-close" onClick={onCancel}>×</button>
         </div>
         <div className="delete-modal-body">
-          <div className="delete-modal-icon">🗑️</div>
+          <div className="delete-modal-icon">
+            <IconTrash size={28} color="#C8102E" strokeWidth={1.5} />
+          </div>
           <p style={{ fontWeight: 700, color: 'var(--grey-900)', fontSize: '0.95rem' }}>
             Delete {count} selected record{count !== 1 ? 's' : ''}?
           </p>

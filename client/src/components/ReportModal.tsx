@@ -73,7 +73,7 @@ function buildPrintHtml(
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Segoe UI',Arial,sans-serif;font-size:11px;color:#111;background:#fff;padding:24px 32px}
   .hdr{display:flex;align-items:center;gap:14px;border-bottom:3px solid #C8102E;padding-bottom:12px;margin-bottom:14px}
-  .emblem{width:40px;height:40px;background:#C8102E;color:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;letter-spacing:.5px;flex-shrink:0}
+  .logo{height:36px;width:auto;object-fit:contain;flex-shrink:0}
   .org-name{font-size:14px;font-weight:800}
   .org-sub{font-size:9.5px;color:#777;margin-top:1px}
   .report-title{font-size:16px;font-weight:800;margin-bottom:3px}
@@ -95,10 +95,9 @@ function buildPrintHtml(
 </style>
 </head><body>
 <div class="hdr">
-  <div class="emblem">NRS</div>
+  <img src="/NRS-logo.png" class="logo" alt="NRS" />
   <div>
-    <div class="org-name">Nigeria Revenue Service</div>
-    <div class="org-sub">Leave Report Dashboard</div>
+    <div class="org-sub" style="font-size:11px;font-weight:700;color:#333;margin:0">Leave Report Dashboard</div>
   </div>
 </div>
 <div class="report-title">${title || 'Leave Report'}</div>

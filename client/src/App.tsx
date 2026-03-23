@@ -151,11 +151,8 @@ export default function App() {
     <div className="app">
       <header className="header">
         <div className="header-brand">
-          <div className="header-emblem">NRS</div>
-          <div>
-            <div className="header-title">Leave Report Dashboard</div>
-            <div className="header-sub">Nigeria Revenue Service</div>
-          </div>
+          <img src="/NRS-logo.png" alt="Nigeria Revenue Service" className="header-logo" />
+          <div className="header-title">Leave Report Dashboard</div>
         </div>
         <div className="header-meta">
           <strong>{stats?.total ?? '—'} Officers</strong>

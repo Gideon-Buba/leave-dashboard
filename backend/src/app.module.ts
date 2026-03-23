@@ -11,7 +11,7 @@ import { StatsModule } from './stats/stats.module';
       type: 'better-sqlite3',
       database: process.env.DB_PATH ?? 'data/leave.db',
       entities: [LeaveRecord],
-      synchronize: process.env.NODE_ENV !== 'production',
+      synchronize: true,
     }),
     RecordsModule,
     ImportExportModule,

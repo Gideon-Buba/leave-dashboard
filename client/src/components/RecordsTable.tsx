@@ -167,10 +167,10 @@ export function RecordsTable({
                     <td className="col-actions">
                       <div className="action-btns">
                         <button className="btn btn-sm btn-outline" onClick={() => onView(r)} title="View">
-                          <IconEye size={13} strokeWidth={1.75} /> View
+                          <IconEye size={13} strokeWidth={1.75} /> <span className="btn-label">View</span>
                         </button>
                         <button className="btn btn-sm btn-outline" onClick={() => onEdit(r)} title="Edit">
-                          <IconEdit size={13} strokeWidth={1.75} /> Edit
+                          <IconEdit size={13} strokeWidth={1.75} /> <span className="btn-label">Edit</span>
                         </button>
                         <button className="btn btn-sm btn-danger-outline" onClick={() => onDelete(r)} title="Delete">
                           <IconTrash size={13} strokeWidth={1.75} />

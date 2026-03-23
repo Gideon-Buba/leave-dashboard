@@ -563,20 +563,70 @@ body {
 }
 .btn-bulk-delete:hover { background: var(--red-dark); }
 
+/* ── Toolbar sizing (replaces inline maxWidth) ── */
+.toolbar-search  { max-width: 240px; }
+.toolbar-select  { max-width: 180px; }
+.toolbar-select-sm { max-width: 160px; }
+
 /* ── Responsive ── */
 @media (max-width: 1100px) { .charts-row { grid-template-columns: 1fr; } }
+
 @media (max-width: 768px) {
+  /* Header */
+  .header { padding: 0 1rem; height: 56px; }
+  .header-logo { height: 34px; }
+  .header-title { font-size: 0.9rem; }
+  .header-meta { display: none; }
+
+  /* Layout */
   .main { padding: 1rem; gap: 1rem; }
   .stats-bar { grid-template-columns: 1fr 1fr; }
-  .toolbar { flex-direction: column; align-items: stretch; }
+
+  /* Toolbar — search full-width, selects share a row, actions wrap */
+  .toolbar { flex-direction: column; align-items: stretch; gap: 0.6rem; }
+  .toolbar-filters { flex-wrap: wrap; gap: 0.5rem; }
+  .toolbar-search { max-width: none; flex-basis: 100%; }
+  .toolbar-select, .toolbar-select-sm { max-width: none; flex: 1; min-width: 130px; }
   .toolbar-actions { flex-wrap: wrap; }
+  .toolbar-sep { display: none; }
+
+  /* Forms */
   .form-grid { grid-template-columns: 1fr; }
   .form-field.full-width { grid-column: 1; }
-  .header { padding: 0 1rem; }
-  .header-meta { display: none; }
+
+  /* Charts */
   .donut-wrap { flex-direction: column; }
+
+  /* Table — tighter padding on mobile */
+  .table td { padding: 0.55rem 0.75rem; }
+  .table th { padding: 0.5rem 0.75rem; }
+
+  /* Hide text labels — icons only on mobile for secondary actions */
+  .btn-label { display: none; }
+
+  /* Modal → bottom sheet */
+  .modal-overlay { align-items: flex-end; padding: 0; }
+  .modal {
+    max-width: 100%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    max-height: 95vh;
+    animation: slideUp 0.25s cubic-bezier(0.22,0.61,0.36,1);
+  }
+
+  /* Toast — full width */
+  .toast-container { left: 1rem; right: 1rem; bottom: 1rem; }
+  .toast { max-width: 100%; min-width: 0; }
+
+  /* Bulk bar — stretch edge-to-edge */
+  .bulk-bar { left: 1rem; right: 1rem; width: auto; transform: none; }
 }
-@media (max-width: 480px) { .stats-bar { grid-template-columns: 1fr; } }
+
+@media (max-width: 480px) {
+  .stats-bar { grid-template-columns: 1fr; }
+  .header-title { display: none; }
+  .stat-value { font-size: 1.7rem; }
+  .stat-icon { width: 42px; height: 42px; }
+}
 
 /* ── Report modal ── */
 .report-modal {

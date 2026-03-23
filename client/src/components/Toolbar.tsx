@@ -29,7 +29,7 @@ export function Toolbar({
   return (
     <div className="toolbar">
       <div className="toolbar-filters">
-        <div className="input-icon-wrap" style={{ maxWidth: 240 }}>
+        <div className="input-icon-wrap toolbar-search">
           <IconSearch size={14} color="var(--grey-400)" />
           <input
             className="input input-with-icon"
@@ -38,11 +38,11 @@ export function Toolbar({
             onChange={(e) => onSearch(e.target.value)}
           />
         </div>
-        <select className="select" style={{ maxWidth: 180 }} value={leaveType} onChange={(e) => onLeaveType(e.target.value)}>
+        <select className="select toolbar-select" value={leaveType} onChange={(e) => onLeaveType(e.target.value)}>
           <option value="">All Leave Types</option>
           {LEAVE_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
         </select>
-        <select className="select" style={{ maxWidth: 160 }} value={status} onChange={(e) => onStatus(e.target.value)}>
+        <select className="select toolbar-select toolbar-select-sm" value={status} onChange={(e) => onStatus(e.target.value)}>
           <option value="">All Statuses</option>
           {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
@@ -65,13 +65,13 @@ export function Toolbar({
           }}
         />
         <button className="btn btn-secondary" onClick={() => fileRef.current?.click()}>
-          <IconUpload size={14} /> Import
+          <IconUpload size={14} /> <span className="btn-label">Import</span>
         </button>
         <button className="btn btn-secondary" onClick={onExport}>
-          <IconDownload size={14} /> Export
+          <IconDownload size={14} /> <span className="btn-label">Export</span>
         </button>
         <button className="btn btn-secondary" onClick={onReport}>
-          <IconFileText size={14} /> Report
+          <IconFileText size={14} /> <span className="btn-label">Report</span>
         </button>
         <button className="btn btn-primary" onClick={onAdd}>
           <IconPlus size={14} /> Add Record

@@ -7,8 +7,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
-  app.enableCors({ origin: 'http://localhost:5173' });
-  await app.listen(3001);
-  console.log('Backend running on http://localhost:3001');
+
+  const isProduction = process.env.NODE_ENV === 'production';
+  if (!isProduction) {
+    app.enableCors({ origin: 'http://localhost:5173' });
+  }
+
+  const port = process.env.PORT ? parseInt(process.env.PORT) : 3001;
+  await app.listen(port);
+  console.log(`Backend running on http://localhost:${port}`);
 }
 bootstrap();

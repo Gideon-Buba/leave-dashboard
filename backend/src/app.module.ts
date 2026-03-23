@@ -9,9 +9,9 @@ import { StatsModule } from './stats/stats.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'better-sqlite3',
-      database: 'data/leave.db',
+      database: process.env.DB_PATH ?? 'data/leave.db',
       entities: [LeaveRecord],
-      synchronize: true, // set to false in production and use migrations
+      synchronize: process.env.NODE_ENV !== 'production',
     }),
     RecordsModule,
     ImportExportModule,

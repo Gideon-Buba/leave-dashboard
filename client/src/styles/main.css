@@ -318,6 +318,35 @@ body {
 .table-empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
 .table-empty-msg { font-size: 0.9rem; }
 
+/* ── Sticky columns (freeze Name left, Actions right) ── */
+.table th.col-checkbox,
+.table td.col-checkbox { position: sticky; left: 0; z-index: 2; }
+.table th.col-name,
+.table td.cell-name    { position: sticky; left: 44px; z-index: 2; }
+.table th.col-actions,
+.table td.col-actions  { position: sticky; right: 0; z-index: 2; }
+
+/* Solid backgrounds so content doesn't bleed through while scrolling */
+.table thead th.col-checkbox,
+.table thead th.col-name    { background: var(--grey-50); }
+.table thead th.col-sorted.col-name { background: var(--red-light); }
+.table thead th.col-actions { background: var(--grey-50); }
+.table tbody td.col-checkbox,
+.table tbody td.cell-name,
+.table tbody td.col-actions { background: var(--white); }
+.table tbody tr:hover td.col-checkbox,
+.table tbody tr:hover td.cell-name,
+.table tbody tr:hover td.col-actions { background: var(--grey-50); }
+.table tbody tr.row-selected td.col-checkbox,
+.table tbody tr.row-selected td.cell-name,
+.table tbody tr.row-selected td.col-actions { background: #FFF5F5; }
+
+/* Freeze-line shadow */
+.table th.col-name,
+.table td.cell-name   { box-shadow: 3px 0 6px -2px rgba(0,0,0,0.07); }
+.table th.col-actions,
+.table td.col-actions { box-shadow: -3px 0 6px -2px rgba(0,0,0,0.07); }
+
 /* ── Status Badge ── */
 .status-badge {
   display: inline-flex; align-items: center; gap: 5px;

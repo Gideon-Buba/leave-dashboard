@@ -25,7 +25,7 @@ const STATUS_COLORS: Record<string, string> = {
   Completed: '#ADB5BD',
 };
 
-const LEAVE_TYPE_COLORS = ['#C8102E', '#9B0D22', '#6D0819', '#343A40', '#495057', '#6C757D'];
+const LEAVE_TYPE_COLORS = ['#C8102E', '#495057', '#6C757D', '#343A40', '#868E96', '#ADB5BD'];
 
 export default function App() {
   const [search, setSearch] = useState('');

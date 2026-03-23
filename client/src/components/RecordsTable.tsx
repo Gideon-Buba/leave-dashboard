@@ -97,6 +97,7 @@ export function RecordsTable({
                 <th
                   key={col.key}
                   className={[
+                    `col-${col.key}`,
                     col.sortable ? 'sortable' : '',
                     sortBy === col.key ? 'col-sorted' : '',
                   ].join(' ')}
@@ -163,7 +164,7 @@ export function RecordsTable({
                     <td>{fmtDate(r.endDate)}</td>
                     <td>{fmtDate(r.resumptionDate)}</td>
                     <td><StatusBadge status={r.status} /></td>
-                    <td>
+                    <td className="col-actions">
                       <div className="action-btns">
                         <button className="btn btn-sm btn-outline" onClick={() => onView(r)} title="View">
                           <IconEye size={13} strokeWidth={1.75} /> View
